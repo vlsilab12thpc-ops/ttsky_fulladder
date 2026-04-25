@@ -30,8 +30,10 @@ async def test_project(dut):
         expected_sum = a ^ b ^ c
         expected_carry = (a & b) | (b & c) | (a & c)
 
-        actual_sum = (dut.uo_out.value >> 1) & 1
-        actual_carry = (dut.uo_out.value >> 0) & 1
+        val = dut.uo_out.value.integer
+
+        actual_sum = (val >> 1) & 1
+        actual_carry = (val >> 0) & 1
 
         assert actual_sum == expected_sum, f"SUM mismatch for input {i}"
         assert actual_carry == expected_carry, f"CARRY mismatch for input {i}"
